@@ -1,6 +1,7 @@
 package tn.clsolution.filemanager.document;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -47,8 +48,14 @@ public class DocumentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
+        try {
+
         this.documentService.delete(id);
-        return ResponseEntity.noContent().build();
+        return  ResponseEntity.ok(id);
+        }catch (EmptyResultDataAccessException e){
+
+        return ResponseEntity.notFound().build();
+        }
     }
 
     @PatchMapping("/{id}")

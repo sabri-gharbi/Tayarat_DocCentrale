@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 @Service
 public class FileDBService {
 
-    final FileDBRepository fileUploadRepository;
+    private final FileDBRepository fileUploadRepository;
 
     @Autowired
     public FileDBService(FileDBRepository fileUploadRepository) {
@@ -35,5 +35,9 @@ public class FileDBService {
 
     public Stream<FileDB> filesList() {
         return this.fileUploadRepository.findAll().stream();
+    }
+
+    public void delete(String id) {
+        this.fileUploadRepository.deleteById(id);
     }
 }

@@ -1,6 +1,7 @@
 package tn.clsolution.filemanager.files;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,6 +49,18 @@ public class FileDBController {
     public ResponseEntity<List<FileDBResponse>> getFilesList() {
         List<FileDBResponse> files = this.fileUploadService.filesList().map(x -> new FileDBResponse(x.getId(), x.getName(), x.getType(), x.getSize())).collect(Collectors.toList());
         return ResponseEntity.ok(files);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteFile(@PathVariable String id) {
+        try {
+            this.fileUploadService.delete(id);
+            return ResponseEntity.ok().body(id);
+
+        } catch (EmptyResultDataAccessException e) {
+
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

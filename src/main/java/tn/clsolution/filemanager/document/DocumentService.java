@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class DocumentService {
 
-    final DocumentRepository documentRepository;
+    private final DocumentRepository documentRepository;
 
     @Autowired
     public DocumentService(DocumentRepository documentRepository) {
