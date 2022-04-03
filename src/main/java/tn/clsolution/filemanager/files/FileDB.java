@@ -24,11 +24,13 @@ public class FileDB {
     private Long size;
     @Lob
     private byte[] data;
+    private String contentType;
 
-    public FileDB(String name, String type, Long size, byte[] data) {
+    public FileDB(String name, String type, Long size, byte[] data,String contentType) {
         this.name = name;
         this.type = type;
         this.size = size;
         this.data = data;
+        this.contentType=contentType;
     }
 }
