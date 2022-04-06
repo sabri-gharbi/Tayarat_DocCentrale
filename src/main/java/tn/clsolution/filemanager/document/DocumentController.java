@@ -1,6 +1,6 @@
 package tn.clsolution.filemanager.document;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +14,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/document")
 @Validated
+@AllArgsConstructor
 public class DocumentController {
     final DocumentService documentService;
-
-    @Autowired
-    public DocumentController(DocumentService documentService) {
-        this.documentService = documentService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Document>> findAll() {
@@ -50,11 +46,11 @@ public class DocumentController {
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         try {
 
-        this.documentService.delete(id);
-        return  ResponseEntity.ok(id);
-        }catch (EmptyResultDataAccessException e){
+            this.documentService.delete(id);
+            return ResponseEntity.ok(id);
+        } catch (EmptyResultDataAccessException e) {
 
-        return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -62,7 +58,7 @@ public class DocumentController {
     public ResponseEntity<Document> update(@RequestBody Document document, @PathVariable Long id) {
         Document updatedDocument = this.documentService.update(id, document);
         if (updatedDocument == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.internalServerError().build();
         }
         return ResponseEntity.ok(updatedDocument);
     }

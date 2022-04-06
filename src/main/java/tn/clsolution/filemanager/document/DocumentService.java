@@ -1,20 +1,16 @@
 package tn.clsolution.filemanager.document;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class DocumentService {
 
     private final DocumentRepository documentRepository;
-
-    @Autowired
-    public DocumentService(DocumentRepository documentRepository) {
-        this.documentRepository = documentRepository;
-    }
 
     //create
     public Document create(Document document) {

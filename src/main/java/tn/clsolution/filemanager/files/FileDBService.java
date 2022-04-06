@@ -1,6 +1,6 @@
 package tn.clsolution.filemanager.files;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,14 +10,10 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
+@AllArgsConstructor
 public class FileDBService {
 
     private final FileDBRepository fileUploadRepository;
-
-    @Autowired
-    public FileDBService(FileDBRepository fileUploadRepository) {
-        this.fileUploadRepository = fileUploadRepository;
-    }
 
     public FileDB store(MultipartFile file) throws IOException {
         String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());

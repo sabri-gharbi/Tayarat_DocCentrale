@@ -19,6 +19,7 @@ public class FileDB {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
     private String name;
     private String type;
     private Long size;
@@ -26,11 +27,11 @@ public class FileDB {
     private byte[] data;
     private String contentType;
 
-    public FileDB(String name, String type, Long size, byte[] data,String contentType) {
+    public FileDB(String name, String type, Long size, byte[] data, String contentType) {
         this.name = name;
         this.type = type;
         this.size = size;
         this.data = data;
-        this.contentType=contentType;
+        this.contentType = contentType;
     }
 }

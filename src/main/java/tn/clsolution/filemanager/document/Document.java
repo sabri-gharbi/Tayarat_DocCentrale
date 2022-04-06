@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -24,12 +24,12 @@ public class Document {
 
     @NotEmpty(message = "fileId cant be empty")
     private String fileId;
-    @NotEmpty(message = "dont mess up with me")
+    @NotEmpty(message = "fileName cant be empty")
     private String name;
-    @NotEmpty(message = "dont mess up with me")
+    @NotEmpty(message = "fileType cant be empty")
     private String type;
     @NotNull
-    @Min(value = 500, message = "file size y a5raa")
+    @Max(value =5000000 , message = "File too large!")
     private Long size;
 
     private String docType;
@@ -42,19 +42,4 @@ public class Document {
     private String docATA;
     private String docTransmitterCode;
 
-    public Document(String fileId, String name, String type, Long size, String docType, String docReference, String docRevision, String docItem, String docTitle, String docAppType, String docRevisionDate, String docATA, String docTransmitterCode) {
-        this.fileId = fileId;
-        this.name = name;
-        this.type = type;
-        this.size = size;
-        this.docType = docType;
-        this.docReference = docReference;
-        this.docRevision = docRevision;
-        this.docItem = docItem;
-        this.docTitle = docTitle;
-        this.docAppType = docAppType;
-        this.docRevisionDate = docRevisionDate;
-        this.docATA = docATA;
-        this.docTransmitterCode = docTransmitterCode;
-    }
 }

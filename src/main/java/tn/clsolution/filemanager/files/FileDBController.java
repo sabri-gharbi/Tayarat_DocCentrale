@@ -1,6 +1,6 @@
 package tn.clsolution.filemanager.files;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,19 +15,16 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/file")
+@AllArgsConstructor
 public class FileDBController {
     final FileDBService fileUploadService;
 
-    @Autowired
-    public FileDBController(FileDBService fileUploadService) {
-        this.fileUploadService = fileUploadService;
-    }
 
     @PostMapping()
     public ResponseEntity<FileDBResponse> store(@RequestParam("file") MultipartFile file) {
         try {
             FileDB result = this.fileUploadService.store(file);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new FileDBResponse(result.getId(), result.getName(), result.getType(), result.getSize()));
+            return ResponseEntity.status(HttpStatus.CREATED).body(new FileDBResponse(result.getId(), result.getName(), result.getType(), result.getSize(),result.getContentType()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
@@ -47,7 +44,7 @@ public class FileDBController {
 
     @GetMapping()
     public ResponseEntity<List<FileDBResponse>> getFilesList() {
-        List<FileDBResponse> files = this.fileUploadService.filesList().map(x -> new FileDBResponse(x.getId(), x.getName(), x.getType(), x.getSize())).collect(Collectors.toList());
+        List<FileDBResponse> files = this.fileUploadService.filesList().map(x -> new FileDBResponse(x.getId(), x.getName(), x.getType(), x.getSize(),x.getContentType())).collect(Collectors.toList());
         return ResponseEntity.ok(files);
     }
 
@@ -55,7 +52,7 @@ public class FileDBController {
     public ResponseEntity<Object> deleteFile(@PathVariable String id) {
         try {
             this.fileUploadService.delete(id);
-            return ResponseEntity.ok().body(id);
+            return ResponseEntity.ok().build();
 
         } catch (EmptyResultDataAccessException e) {
 
