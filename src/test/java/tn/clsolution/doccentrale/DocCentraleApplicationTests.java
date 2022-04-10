@@ -1,10 +1,10 @@
-package tn.clsolution.filemanager;
+package tn.clsolution.doccentrale;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FileManagerApplicationTests {
+class DocCentraleApplicationTests {
 
     @Test
     void contextLoads() {

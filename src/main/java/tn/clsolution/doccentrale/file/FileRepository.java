@@ -1,9 +1,9 @@
-package tn.clsolution.filemanager.files;
+package tn.clsolution.doccentrale.file;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FileDBRepository extends JpaRepository<FileDB, String> {
+public interface FileRepository extends JpaRepository<File, String> {
 
 }
