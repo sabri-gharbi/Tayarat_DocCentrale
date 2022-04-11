@@ -33,6 +33,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> handleNotFoundException(NoSuchElementException exc){
-        return ResponseEntity.notFound().build();
+        Map<String, Object> body = new HashMap<>();
+        String message= exc.getMessage();
+        body.put("error", message);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 }

@@ -9,7 +9,7 @@ public interface DocumentMapper {
 
 
     DocumentDTO documentToDTO(Document document);
-    Document updateDocument(DocumentDTO documentDTO,@MappingTarget Document document);
+    Document updateDocument(DocumentDTO documentDTO, @MappingTarget Document document);
 
 
 }

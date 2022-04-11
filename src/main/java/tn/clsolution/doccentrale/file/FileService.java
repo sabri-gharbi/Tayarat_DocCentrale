@@ -3,6 +3,7 @@ package tn.clsolution.doccentrale.file;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import tn.clsolution.doccentrale.document.Document;
 import tn.clsolution.doccentrale.document.DocumentRepository;
 
 import java.io.IOException;
@@ -14,15 +15,21 @@ import java.util.stream.Collectors;
 public class FileService {
 
     private final FileRepository fileRepository;
-    private final FileMapper fileMapper;
     private final DocumentRepository documentRepository;
+    private final FileMapper fileMapper;
 
-    public FileDTO store(MultipartFile file) throws IOException {
+    public FileDTO store(MultipartFile file,Long document_id) throws IOException {
         String originalFilename = file.getOriginalFilename();
+
         File newFile =new File();
-        newFile.setName(originalFilename);
+        newFile.setName(originalFilename.substring(0,originalFilename.lastIndexOf('.')));
+        newFile.setType(originalFilename.substring(originalFilename.lastIndexOf('.')+1));
         newFile.setSize(file.getSize());
         newFile.setData(file.getBytes());
+
+        Document document=this.documentRepository.findById(document_id).get();
+        newFile.setDocument(document);
+
         File savedFile = this.fileRepository.save(newFile);
         return this.fileMapper.fileToDTO(savedFile,new FileDTO());
     }

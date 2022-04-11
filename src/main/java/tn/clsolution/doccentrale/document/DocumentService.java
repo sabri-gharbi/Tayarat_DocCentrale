@@ -15,7 +15,10 @@ public class DocumentService {
 
     //create
     public DocumentDTO create(DocumentDTO documentDTO){
-        Document document= this.documentRepository.save(this.documentMapper.updateDocument(documentDTO,new Document()));
+
+        Document newDocument =this.documentMapper.updateDocument(documentDTO,new Document());
+        System.out.println(newDocument.getTitle());
+        Document document= this.documentRepository.save(newDocument);
         return this.documentMapper.documentToDTO(document);
     }
 

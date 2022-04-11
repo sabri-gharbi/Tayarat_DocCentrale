@@ -19,9 +19,10 @@ public class FileController {
 
 
     @PostMapping()
-    public ResponseEntity<FileDTO> storeFile(@RequestParam("file") MultipartFile fileData) {
+    public ResponseEntity<FileDTO> storeFile(@RequestParam("file") MultipartFile fileData,@RequestParam("document") Long document_id) {
+
         try {
-            FileDTO fileDTO =this.fileService.store(fileData);
+            FileDTO fileDTO =this.fileService.store(fileData,document_id);
             return ResponseEntity.status(HttpStatus.CREATED).body(fileDTO);
         } catch (IOException ex) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();

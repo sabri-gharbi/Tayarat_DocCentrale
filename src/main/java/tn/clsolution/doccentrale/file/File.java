@@ -23,6 +23,9 @@ public class File {
     private String name;
 
     @Column(nullable = false)
+    private String type;
+
+    @Column(nullable = false)
     private Long size;
 
     @Lob

@@ -3,13 +3,16 @@ package tn.clsolution.doccentrale.document;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/document")
 @RequiredArgsConstructor
+@Validated
 public class DocumentController {
     private final DocumentService documentService;
 
@@ -26,7 +29,7 @@ public class DocumentController {
     }
 
     @PostMapping
-    public ResponseEntity<DocumentDTO> create(@RequestBody DocumentDTO documentDTO) {
+    public ResponseEntity<DocumentDTO> create(@Valid @RequestBody DocumentDTO documentDTO) {
         DocumentDTO createdDocument = this.documentService.create(documentDTO);
         if (createdDocument == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
