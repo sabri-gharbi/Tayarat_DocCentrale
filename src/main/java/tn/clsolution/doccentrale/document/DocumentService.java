@@ -2,6 +2,7 @@ package tn.clsolution.doccentrale.document;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,8 +30,9 @@ public class DocumentService {
     }
 
     //findAll
-    public List<DocumentDTO> findAll() {
-        List<DocumentDTO> documents =this.documentRepository.findAll().stream().map(document -> this.documentMapper.documentToDTO(document)).collect(Collectors.toList());
+    @Transactional
+    public List<DocumentResponse> findAll() {
+        List<DocumentResponse> documents =this.documentRepository.findAll().stream().map(document -> this.documentMapper.documentToDocumentResponse(document,new DocumentResponse())).collect(Collectors.toList());
         return documents;
     }
 

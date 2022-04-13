@@ -69,7 +69,7 @@ public class Document {
     @Column(nullable = true)
     private Long preparation;
 
-    @OneToMany(mappedBy = "document")
+    @OneToMany(mappedBy = "document",cascade = CascadeType.REMOVE)
     private List<File> files=new ArrayList<>();
 
 }

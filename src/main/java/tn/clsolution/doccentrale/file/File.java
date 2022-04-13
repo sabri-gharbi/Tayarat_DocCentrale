@@ -1,7 +1,12 @@
 package tn.clsolution.doccentrale.file;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import tn.clsolution.doccentrale.document.Document;
 
 import javax.persistence.*;
@@ -33,6 +38,7 @@ public class File {
     private byte[] data;
 
     @ManyToOne()
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "document_id")
     private Document document;
 }

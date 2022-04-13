@@ -17,8 +17,8 @@ public class DocumentController {
     private final DocumentService documentService;
 
     @GetMapping
-    public ResponseEntity<List<DocumentDTO>> findAll() {
-        List<DocumentDTO> documents = this.documentService.findAll();
+    public ResponseEntity<List<DocumentResponse>> findAll() {
+        List<DocumentResponse> documents = this.documentService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(documents);
     }
 
