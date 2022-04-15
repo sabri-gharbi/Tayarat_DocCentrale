@@ -15,18 +15,17 @@ public class DocumentService {
     private final DocumentMapper documentMapper;
 
     //create
-    public DocumentDTO create(DocumentDTO documentDTO){
-
+    public DocumentResponse create(DocumentDTO documentDTO){
         Document newDocument =this.documentMapper.updateDocument(documentDTO,new Document());
-        System.out.println(newDocument.getTitle());
-        Document document= this.documentRepository.save(newDocument);
-        return this.documentMapper.documentToDTO(document);
+        DocumentResponse document =this.documentMapper.documentToDocumentResponse(this.documentRepository.save(newDocument),new DocumentResponse());
+        return document;
     }
 
     //findOne
-    public DocumentDTO findOne(Long id) {
+    @Transactional
+    public DocumentResponse findOne(Long id) {
         Document document=this.documentRepository.findById(id).get();
-        return this.documentMapper.documentToDTO(document);
+        return this.documentMapper.documentToDocumentResponse(document,new DocumentResponse());
     }
 
     //findAll
@@ -36,9 +35,18 @@ public class DocumentService {
         return documents;
     }
 
+    @Transactional
+    public DocumentResponse update(Long id, DocumentDTO documentDTO){
+        Document document=this.documentRepository.findById(id).get();
+        Document updatedDocument=this.documentRepository.save(this.documentMapper.updateDocument(documentDTO,document));
+        return this.documentMapper.documentToDocumentResponse(updatedDocument,new DocumentResponse());
+    }
+
     //delete
     public void delete(Long id) {
         this.documentRepository.deleteById(id);
     }
+
+
 
 }
